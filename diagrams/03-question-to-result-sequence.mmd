@@ -1,0 +1,21 @@
+sequenceDiagram
+    participant U as 用户
+    participant A as 应用 / Agent
+    participant G as 查询与权限检查
+    participant J as Jena / Fuseki + ARQ
+    participant D as 明确范围的数据视图
+    U->>A: 变更影响与成本问题
+    A->>A: 确定实体、时间、配置和成本口径
+    A->>G: 任务契约与候选查询
+    G->>G: 校验模板、权限、字段完整性与预算
+    alt 条件或数据不满足
+        G-->>A: 缺失项、歧义或拒绝原因
+        A-->>U: 澄清 / 无法计算 / 范围受限
+    else 满足执行条件
+        G->>J: 已审查的 SPARQL
+        J->>D: 匹配、连接、过滤、聚合
+        D-->>J: 变量绑定
+        J-->>A: 结构化结果
+        A->>A: 对照证据明细，检查范围与完整性
+        A-->>U: 结果 + 口径 + 证据 + 局限
+    end

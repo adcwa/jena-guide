@@ -1,0 +1,12 @@
+flowchart TB
+    U["用户问题"] --> APP["应用 / Agent<br/>任务规划与权限控制"]
+    APP --> O["Ontop<br/>映射 + 轻量本体 + SPARQL→SQL"]
+    O --> DB["Oracle / MySQL / PostgreSQL<br/>业务数据留在原库"]
+    O --> SLICE["任务相关事实<br/>显式范围、时间和完整性说明"]
+    SLICE --> J["Jena 工作模型<br/>组合图 · SHACL · ARQ · 可选规则"]
+    DEF["已发布本体与 Shapes"] --> J
+    J --> NEED{"是否确有 DL 任务？"}
+    NEED -->|"否"| E["证据结果"]
+    NEED -->|"是：按需提取和转换"| DL["外部 DL 推理服务"]
+    DL --> E
+    E --> OUT["结果核验与解释"]

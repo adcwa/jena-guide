@@ -1,0 +1,22 @@
+PREFIX ex:  <https://example.org/vehicle/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+# Run only after the shapes + same-currency/completeness gate passes.
+# The time and change identifier are fixed deliberately for reproducibility.
+SELECT ?bom ?vehicleModel ?configuration ?currency
+       (SUM(?quantity) AS ?affectedQuantity)
+       (SUM(?quantity * (?newPrice - ?oldPrice)) AS ?deltaPerVehicle)
+WHERE {
+  VALUES (?change ?at) {
+    (ex:ECN_2026_017 "2026-10-15T09:00:00+08:00"^^xsd:dateTime)
+  }
+  ?change a ex:ChangeOrder ; ex:fromRevision ?old ; ex:toRevision ?new .
+  ?old ex:revisionOf ?part ; ex:unitPrice ?oldPrice ; ex:currency ?currency .
+  ?new ex:revisionOf ?part ; ex:unitPrice ?newPrice ; ex:currency ?currency .
+  ?bom a ex:BOM ; ex:vehicleModel ?vehicleModel ; ex:configuration ?configuration ;
+       ex:status ex:Released ; ex:validFrom ?start ; ex:validTo ?end ; ex:hasLine ?line .
+  ?line a ex:BOMLine ; ex:usesRevision ?old ; ex:quantity ?quantity .
+  FILTER(?start <= ?at && ?at < ?end)
+}
+GROUP BY ?bom ?vehicleModel ?configuration ?currency
+ORDER BY ?vehicleModel ?configuration

@@ -1,0 +1,2 @@
+PREFIX ex: <https://example.org/vehicle/>
+SELECT ?part WHERE { ?part a ex:Part } ORDER BY ?part

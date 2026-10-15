@@ -1,0 +1,20 @@
+test_01_turtle_files_parse (__main__.ExampleChecks.test_01_turtle_files_parse) ... ok
+test_02_expected_costs (__main__.ExampleChecks.test_02_expected_costs) ... ok
+test_03_evidence_has_three_occurrences (__main__.ExampleChecks.test_03_evidence_has_three_occurrences) ... ok
+test_04_draft_excluded (__main__.ExampleChecks.test_04_draft_excluded) ... ok
+test_05_expired_excluded (__main__.ExampleChecks.test_05_expired_excluded) ... ok
+test_06_new_revision_excluded (__main__.ExampleChecks.test_06_new_revision_excluded) ... ok
+test_07_plain_graph_does_not_infer_part (__main__.ExampleChecks.test_07_plain_graph_does_not_infer_part) ... ok
+test_08_explicit_hierarchy_path_finds_part (__main__.ExampleChecks.test_08_explicit_hierarchy_path_finds_part) ... ok
+test_09_minimal_subclass_materialization_finds_part (__main__.ExampleChecks.test_09_minimal_subclass_materialization_finds_part) ... ok
+test_10_identical_triple_is_not_an_extra_occurrence (__main__.ExampleChecks.test_10_identical_triple_is_not_an_extra_occurrence) ... ok
+test_11_change_sparql_constraint_passes (__main__.ExampleChecks.test_11_change_sparql_constraint_passes) ... ok
+test_12_currency_mismatch_is_detected (__main__.ExampleChecks.test_12_currency_mismatch_is_detected) ... ok
+test_13_time_end_is_exclusive (__main__.ExampleChecks.test_13_time_end_is_exclusive) ... ok
+test_14_missing_price_detected_as_missing_not_zero (__main__.ExampleChecks.test_14_missing_price_detected_as_missing_not_zero) ... ok
+test_15_two_prices_multiply_join_rows (__main__.ExampleChecks.test_15_two_prices_multiply_join_rows) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.592s
+
+OK

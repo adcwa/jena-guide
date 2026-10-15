@@ -1,0 +1,20 @@
+@prefix ex:   <https://example.org/vehicle/> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+
+ex:VehicleDemo a owl:Ontology ;
+    owl:versionInfo "1.0-demo" .
+ex:Part a owl:Class .
+ex:RadarBracket a owl:Class ; rdfs:subClassOf ex:Part .
+ex:PartRevision a owl:Class .
+ex:ChangeOrder a owl:Class .
+ex:BOM a owl:Class .
+ex:BOMLine a owl:Class .
+ex:revisionOf a owl:ObjectProperty .
+ex:fromRevision a owl:ObjectProperty .
+ex:toRevision a owl:ObjectProperty .
+ex:hasLine a owl:ObjectProperty .
+ex:usesRevision a owl:ObjectProperty .
+# No domain/range declarations in this minimal ontology:
+# this keeps the subclass-inference exercise unambiguous.

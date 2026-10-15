@@ -1,0 +1,33 @@
+flowchart TB
+    U["用户 / Web / IM"] --> APP["业务应用或 Agent<br/>理解问题 · 实体对齐 · 口径确认 · 权限"]
+    APP --> PLAN["受控查询计划<br/>模板 / SPARQL · 数据范围 · 时间 · 预算"]
+
+    subgraph JENA["Apache Jena 能力边界"]
+        F["Fuseki：HTTP 服务（可选）"]
+        A["ARQ：SPARQL 解析与执行"]
+        O["Ontology API：操作本体结构"]
+        I["Inference：可选推理视图"]
+        V["SHACL：显式数据校验"]
+        M["Model / Graph / Dataset：统一数据抽象"]
+        T["TDB2：持久化 RDF"]
+        MEM["内存图 / 任务小子图"]
+        R["RIOT：RDF 读写"]
+        F --> A
+        A --> M
+        O --> M
+        I --> M
+        V --> M
+        R --> M
+        M --> T
+        M --> MEM
+    end
+
+    PLAN -->|"远程 HTTP"| F
+    PLAN -->|"嵌入式 Java"| A
+    SRC["RDF 文件 / 外部映射产物"] --> R
+    DEF["本体与推理配置"] --> I
+    SH["Shapes"] --> V
+    A --> RES["结构化结果 + 查询范围"]
+    RES --> CHECK["应用层：核验 · 证据 · 完整性说明"]
+    CHECK --> ANSWER["表格 / JSON / 自然语言答案"]
+    ANSWER --> U

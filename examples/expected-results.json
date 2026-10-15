@@ -1,0 +1,12 @@
+{
+  "notice": "Synthetic teaching data; expected values, not real business results.",
+  "queryTime": "2026-10-15T09:00:00+08:00",
+  "changeNumber": "ECN-2026-017",
+  "resultScope": "released BOM, valid at queryTime, direct BOMLine, old revision only",
+  "rows": [
+    {"bom": "BOM_A", "vehicleModel": "V-A", "configuration": "STD", "currency": "CNY", "affectedQuantity": "1.0", "deltaPerVehicle": "20.00"},
+    {"bom": "BOM_B", "vehicleModel": "V-B", "configuration": "PRO", "currency": "CNY", "affectedQuantity": "2.0", "deltaPerVehicle": "40.00"}
+  ],
+  "evidenceRows": 3,
+  "notIncluded": ["tax", "logistics", "scrap", "tooling", "productionVolume", "recursiveBOMExpansion"]
+}

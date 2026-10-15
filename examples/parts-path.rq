@@ -1,0 +1,5 @@
+PREFIX ex:   <https://example.org/vehicle/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT ?part
+WHERE { ?part a ?class . ?class rdfs:subClassOf* ex:Part }
+ORDER BY ?part

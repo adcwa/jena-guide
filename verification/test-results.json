@@ -1,0 +1,30 @@
+{
+  "engine": "RDFLib 7.5.0",
+  "testsRun": 15,
+  "failures": 0,
+  "errors": 0,
+  "success": true,
+  "notVerified": [
+    "Apache Jena 6.2.0 runtime",
+    "Jena SHACL Core execution",
+    "Java snippet compilation",
+    "Fuseki HTTP deployment",
+    "TDB2 persistence or transaction behavior"
+  ],
+  "results": [
+    [
+      "V-A",
+      "STD",
+      "CNY",
+      "1.0",
+      "20.000"
+    ],
+    [
+      "V-B",
+      "PRO",
+      "CNY",
+      "2.0",
+      "40.000"
+    ]
+  ]
+}

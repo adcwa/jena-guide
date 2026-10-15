@@ -1,0 +1,16 @@
+PREFIX ex:  <https://example.org/vehicle/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?change ?bom ?line ?old ?new ?quantity ?oldPrice ?newPrice ?currency ?lineDelta
+WHERE {
+  VALUES (?change ?at) {
+    (ex:ECN_2026_017 "2026-10-15T09:00:00+08:00"^^xsd:dateTime)
+  }
+  ?change a ex:ChangeOrder ; ex:fromRevision ?old ; ex:toRevision ?new .
+  ?old ex:revisionOf ?part ; ex:unitPrice ?oldPrice ; ex:currency ?currency .
+  ?new ex:revisionOf ?part ; ex:unitPrice ?newPrice ; ex:currency ?currency .
+  ?bom a ex:BOM ; ex:status ex:Released ; ex:validFrom ?start ; ex:validTo ?end ; ex:hasLine ?line .
+  ?line a ex:BOMLine ; ex:usesRevision ?old ; ex:quantity ?quantity .
+  FILTER(?start <= ?at && ?at < ?end)
+  BIND(?quantity * (?newPrice - ?oldPrice) AS ?lineDelta)
+}
+ORDER BY ?bom ?line

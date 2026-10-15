@@ -1,0 +1,19 @@
+flowchart LR
+    subgraph PREP["知识与数据准备：发布侧"]
+        CQ["业务问题 / Competency Questions"] --> DEF["概念 · 关系 · 口径"]
+        DEF --> ONT["本体与 Shapes"]
+        SRC["PLM / ERP / 数据库 / 文件"] --> MAP["映射 / 抽取 / 同步"]
+        MAP --> RDF["RDF 原始事实"]
+        ONT --> QA["语法检查 · SHACL · 必要逻辑检查"]
+        RDF --> QA
+        QA --> REL["发布版本与数据快照"]
+    end
+    subgraph RUN["处理用户问题：在线侧"]
+        Q["自然语言问题"] --> INT["实体对齐与口径确认"]
+        INT --> PLAN["受控查询计划"]
+        PLAN --> EXEC["ARQ / 其他确定性执行器"]
+        EXEC --> EVID["结果核验与证据组织"]
+        EVID --> OUT["表格 / 解释 / 不确定性说明"]
+    end
+    REL --> PLAN
+    REL --> EXEC

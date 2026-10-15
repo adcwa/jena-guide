@@ -1,0 +1,53 @@
+@prefix ex:   <https://example.org/vehicle/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# Synthetic teaching data; not a real company's business records.
+# Each BOM is one vehicle/configuration. Each BOMLine is a unique occurrence.
+# Amounts are illustrative material-cost values in CNY, not quotations.
+ex:P100 a ex:RadarBracket ; rdfs:label "前雷达支架"@zh ; ex:partNo "P100" .
+ex:P100_A a ex:PartRevision ; ex:revisionOf ex:P100 ; ex:revisionCode "A" ;
+    ex:unitPrice "100.00"^^xsd:decimal ; ex:currency "CNY" .
+ex:P100_B a ex:PartRevision ; ex:revisionOf ex:P100 ; ex:revisionCode "B" ;
+    ex:unitPrice "120.00"^^xsd:decimal ; ex:currency "CNY" .
+ex:ECN_2026_017 a ex:ChangeOrder ; ex:changeNo "ECN-2026-017" ;
+    ex:fromRevision ex:P100_A ; ex:toRevision ex:P100_B .
+
+ex:BOM_A a ex:BOM ; ex:vehicleModel "V-A" ; ex:configuration "STD" ;
+    ex:status ex:Released ;
+    ex:validFrom "2026-01-01T00:00:00+08:00"^^xsd:dateTime ;
+    ex:validTo "2027-01-01T00:00:00+08:00"^^xsd:dateTime ;
+    ex:hasLine ex:Line_A1 .
+ex:Line_A1 a ex:BOMLine ; ex:usesRevision ex:P100_A ; ex:quantity "1.0"^^xsd:decimal .
+
+ex:BOM_B a ex:BOM ; ex:vehicleModel "V-B" ; ex:configuration "PRO" ;
+    ex:status ex:Released ;
+    ex:validFrom "2026-01-01T00:00:00+08:00"^^xsd:dateTime ;
+    ex:validTo "2027-01-01T00:00:00+08:00"^^xsd:dateTime ;
+    ex:hasLine ex:Line_B1, ex:Line_B2 .
+ex:Line_B1 a ex:BOMLine ; ex:usesRevision ex:P100_A ; ex:quantity "1.0"^^xsd:decimal .
+ex:Line_B2 a ex:BOMLine ; ex:usesRevision ex:P100_A ; ex:quantity "1.0"^^xsd:decimal .
+
+# Negative fixture 1: draft BOM, excluded.
+ex:BOM_Draft a ex:BOM ; ex:vehicleModel "V-DRAFT" ; ex:configuration "STD" ;
+    ex:status ex:Draft ;
+    ex:validFrom "2026-01-01T00:00:00+08:00"^^xsd:dateTime ;
+    ex:validTo "2027-01-01T00:00:00+08:00"^^xsd:dateTime ;
+    ex:hasLine ex:Line_Draft .
+ex:Line_Draft a ex:BOMLine ; ex:usesRevision ex:P100_A ; ex:quantity "5.0"^^xsd:decimal .
+
+# Negative fixture 2: expired BOM, excluded at the query time.
+ex:BOM_Expired a ex:BOM ; ex:vehicleModel "V-OLD" ; ex:configuration "STD" ;
+    ex:status ex:Released ;
+    ex:validFrom "2026-01-01T00:00:00+08:00"^^xsd:dateTime ;
+    ex:validTo "2026-09-01T00:00:00+08:00"^^xsd:dateTime ;
+    ex:hasLine ex:Line_Expired .
+ex:Line_Expired a ex:BOMLine ; ex:usesRevision ex:P100_A ; ex:quantity "8.0"^^xsd:decimal .
+
+# Negative fixture 3: already uses the new revision, excluded.
+ex:BOM_AlreadyNew a ex:BOM ; ex:vehicleModel "V-NEW" ; ex:configuration "STD" ;
+    ex:status ex:Released ;
+    ex:validFrom "2026-01-01T00:00:00+08:00"^^xsd:dateTime ;
+    ex:validTo "2027-01-01T00:00:00+08:00"^^xsd:dateTime ;
+    ex:hasLine ex:Line_New .
+ex:Line_New a ex:BOMLine ; ex:usesRevision ex:P100_B ; ex:quantity "3.0"^^xsd:decimal .
